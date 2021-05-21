@@ -1,25 +1,25 @@
 plan_options:
 - discount: '0'
-  extras: ''
+  duration: 18.2weeks
+  extras: Extra features here
   monthly_cost: 46154
   name: Option 1
-  project_cost: $210,000
-  project_cost_after_discount: ''
-  project_days: 91
-  project_weeks: 18.2
-- discount: '10%'
-  extras: Chatbot POC
-  monthly_cost: $45,000
-  name: Option 2
-  project_cost: $210,000
-  project_cost_after_discount: ''
-  project_days: 91
-  project_weeks: 18.2
-- discount: '0'
-  extras: Extra features here
-  monthly_cost: $40,000
-  name: Option 3
   project_cost: 210000
   project_cost_after_discount: ''
   project_days: 91
-  project_weeks: 18.2
+- discount: '0'
+  duration: 18.2weeks
+  extras: Extra features here
+  monthly_cost: 46154
+  name: Option 1
+  project_cost: 210000
+  project_cost_after_discount: ''
+  project_days: 91
+- discount: '0'
+  duration: 18.2weeks
+  extras: Extra features here
+  monthly_cost: 46154
+  name: Option 1
+  project_cost: 210000
+  project_cost_after_discount: ''
+  project_days: 91

@@ -15,6 +15,7 @@ from src.build_cost import build_cost
 import shutil
 import inquirer
 import yaml
+import json
 
 db = TinyDB('db.json')
 
@@ -43,18 +44,23 @@ plan_asset_names = []
 for obj in plan_assets:
     plan_asset_names.append(obj['name'])
 
-
 timeline_assets = db.search(Query().asset=='timelines')
 timeline_asset_names = []
 for obj in timeline_assets:
     timeline_asset_names.append(obj['name'])
 
+option_assets = db.search(Query().asset=='options')
+option_asset_names = []
+for obj in option_assets:
+    option_asset_names.append(obj['name'])
 
 ASSET_NAMES = {
     'costs': cost_asset_names,
     'plans': plan_asset_names,
     'timelines': timeline_asset_names,
+    'options': option_asset_names,
 }
+
 
 s3 = boto3.resource('s3')
 
@@ -101,6 +107,7 @@ def cli(ctx, debug):
     ctx.ensure_object(dict)
     #ctx.obj['DEBUG'] = debug
     #ctx.obj['primary'] = 'proposal'
+    pass
 
 @cli.group()
 def assets():
@@ -204,7 +211,7 @@ def new(ctx):
     #save the metadata for later
     db.insert({
         'asset': 'options',
-        'name': 'options_for_' + name,
+        'name': 'options_for_' + plan_name,
         'plan_name': plan_name,
         'plan_numbers': plan_numbers,
     })
@@ -312,20 +319,20 @@ def new(ctx, name):
         #build a dict
         if len(option_return)>0:
             option_data = option_return[0]
-            option_data['name'] = 'Option ' + str(idx + 1)
+            #option_data['name'] = 'Option ' + str(idx + 1)
             option_data['extras'] = 'Extra features here'
             option_data['discount'] = '0'
             option_data['path'] = yaml_template
             options['plan_options'].append({
                 'discount': option_data['discount'],
                 'extras': option_data['extras'],
-                'name': option_data['name'],
+                'name': 'Option ' + str(idx + 1),
                 'project_cost': option_data['plan_numbers']['project_cost'],
-                'project_weeks': option_data['plan_numbers']['project_weeks'],
+                'duration': str(option_data['plan_numbers']['project_weeks']) + option_data['plan_numbers']['units'],
                 'project_days': option_data['plan_numbers']['project_days'],
                 'project_cost_after_discount': '',
-                'monthly_cost': option_data['plan_numbers']['monthly_cost']
-
+                'monthly_cost': option_data['plan_numbers']['monthly_cost'],
+                'plan_name': option_data['plan_name']
             })
             db.update(option_data, q)
 
@@ -333,21 +340,30 @@ def new(ctx, name):
     with open(yaml_template, 'w') as file:
         yaml.dump(options, file)
 
-def show(ctx, name):
-    options_html = download_file(ctx.obj['asset'], name)
-
 @options.command()
-def test():
+@click.pass_context
+def show(ctx):
     questions = [
-        inquirer.Checkbox('interests',
-                          message="What are you interested in?",
-                          choices=['Computers', 'Books', 'Science', 'Nature', 'Fantasy', 'History'],
-                          ),
+        inquirer.List('options',
+                          message='Which option set do you want to see?',
+                          choices=ASSET_NAMES['options'])
     ]
-    answers = inquirer.prompt(questions)
-    #show
-    #build a csv from yaml
-    #tell them where the csv is, and they can make a table from it.
-    #also build a .js file
-    #html table with bootstrap
-       # 'input_data': os.path.realpath(cost_json_filename)
+    answers=inquirer.prompt(questions)
+    #get the yaml file
+    options_file = db.search(Query().name==answers['options'])[0]['path']
+
+    with open(options_file, 'r') as stream:
+        data = yaml.safe_load(stream)
+    #parse into an object that follows the data model
+    #data = db.search(Query().name==answers['options'])
+
+    option_json_data = 'const pricingOptionsInput=' + json.dumps(data['plan_options']) + ';'
+
+    #write to a js file
+    text_file = open("pricing-options-input.js", "w")
+    text_file.write(option_json_data)
+    text_file.close()
+
+    #open html
+    options_html = download_file(ctx.obj['asset'], 'pricing-options')[1]['destination']
+    webbrowser.open('file://' + os.path.realpath(options_html))
