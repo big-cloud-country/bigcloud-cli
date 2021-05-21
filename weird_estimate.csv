@@ -1,7 +1,0 @@
-﻿Group hierarchy,Region,Description,Service,Upfront,Monthly,First 12 months total,Currency,Configuration summary
-My Estimate,US East (Ohio),d,Amazon Athena,0,74259.28,891111.36,USD,"Total number of queries (5000 per day), Data amount scanned per query (100 GB)"
-
-
-
-Acknowledgement
-"* AWS Pricing Calculator provides only an estimate of your AWS fees and doesn't include any taxes that might apply. Your actual fees depend on a variety of factors, including your actual usage of AWS services."

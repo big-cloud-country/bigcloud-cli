@@ -1,9 +1,0 @@
-plan_options:
-- discount: '0'
-  duration: 18.2weeks
-  extras: Extra features here
-  monthly_cost: 46154
-  name: Option 1
-  project_cost: 210000
-  project_cost_after_discount: ''
-  project_days: 91
