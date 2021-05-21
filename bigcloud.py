@@ -117,10 +117,24 @@ def assets():
 @click.option('--name', '-n')
 def delete(name):
     db.remove(Query().name == name)
-    click.echo('deleted ' + name)
+    print('deleted ' + name)
     click.echo('Updated project assets:\n')
     for item in iter(db):
         click.echo(item)
+
+
+def abort_if_false(ctx, param, value):
+    if not value:
+        ctx.abort()
+
+@assets.command()
+@click.option('--yes', is_flag=True, callback=abort_if_false,
+              expose_value=False,
+              prompt='Are you sure you want to clear all assets?')
+def delete_all(): #has to be typed in as delete-all
+    db.truncate()
+    click.echo('All assets cleared.')
+
 
 @assets.command()
 def list():
