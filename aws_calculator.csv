@@ -1,0 +1,15 @@
+﻿Group hierarchy,Region,Description,Service,Upfront,Monthly,First 12 months total,Currency,Configuration summary
+My Estimate,US East (Ohio),my_estimate,Amazon API Gateway,0,390,4680.00,USD,"HTTP API requests units (millions), Average size of each request (34 KB), REST API request units (millions), Cache memory size (GB) (None), WebSocket message units (thousands), Average message size (32 KB), Requests (400 per month), Messages (20 per second)"
+My Estimate,US East (Ohio),athena,Amazon Athena,0,5000,178.20,USD,"Total number of queries (100 per day), Data amount scanned per query (1 GB)"
+My Estimate > Data tools,US East (Ohio),,Amazon Athena,0,29.71,356.52,USD,"Total number of queries (100 per day), Data amount scanned per query (2 GB)"
+My Estimate > Data tools,US East (Ohio),aurora sql,Amazon Aurora MySQL-Compatible,0,131.97,1583.64,USD,"Change records per statement (0.38), Nodes (2), Instance Type (db.t2.medium), Instance Family (General purpose), Pricing Model (OnDemand), Storage amount (100 GB)"
+My Estimate > Data tools,US East (Ohio),emr,Amazon EMR master node,0,153.3,1839.60,USD,"Number of master EMR nodes (2), EC2 instance (c4.2xlarge), Utilization (100 %Utilized/Month)"
+My Estimate > Data tools,US East (Ohio),emr,Amazon EMR core node,0,766.5,9198.00,USD,"Number of core EMR nodes (10), EC2 instance (c4.2xlarge), Utilization (100 %Utilized/Month)"
+My Estimate > Compute,US East (Miami),ec2,Amazon EC2,0,5,11963.04,USD,"Operating system (Linux), Quantity (10), Pricing strategy (EC2 Instance Savings Plans 1 Year No Upfront), Storage amount (30 GB), Instance type (t3.xlarge)"
+My Estimate > Compute,US East (Ohio),step,Step Functions - Standard Workflows,0,12.4,148.80,USD,"Workflow requests (100000 per month), State transitions per workflow (5)"
+My Estimate > Compute,US East (Ohio),ecs,Amazon Elastic Container Registry,0,15,180.00,USD,"Data transfer cost (0), Amount of data stored (150 GB per month)"
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+Acknowledgement,,,,,,,,
+"* AWS Pricing Calculator provides only an estimate of your AWS fees and doesn't include any taxes that might apply. Your actual fees depend on a variety of factors, including your actual usage of AWS services.",,,,,,,,

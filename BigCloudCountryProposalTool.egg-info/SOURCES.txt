@@ -1,0 +1,8 @@
+bigcloud.py
+setup.py
+BigCloudCountryProposalTool.egg-info/PKG-INFO
+BigCloudCountryProposalTool.egg-info/SOURCES.txt
+BigCloudCountryProposalTool.egg-info/dependency_links.txt
+BigCloudCountryProposalTool.egg-info/entry_points.txt
+BigCloudCountryProposalTool.egg-info/requires.txt
+BigCloudCountryProposalTool.egg-info/top_level.txt
