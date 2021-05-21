@@ -2,3 +2,4 @@ Click
 boto3
 tinydb
 pandas
+pyyaml

@@ -151,7 +151,8 @@ def build_timeline(filename, timeline_name):
         'project_days': durations['project_days'],
         'project_weeks': durations['project_weeks'],
         'project_cost': project_cost,
-        'monthly_cost': monthly_cost
+        'monthly_cost': monthly_cost,
+        'name': filename,
     }
 
     metadata_js = 'var metadata = ' + json.dumps(metadata)
@@ -167,6 +168,7 @@ def build_timeline(filename, timeline_name):
 
     #open the chart in a new tab
     #webbrowser.open('file://' + os.path.realpath(chart_html_page))
+    return metadata
 
 def days_to_milliseconds(days):
     return days * 24 * 60 * 60 * 1000
